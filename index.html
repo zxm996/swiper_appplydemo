@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>swiperdemo</title>
+	<link rel="stylesheet" href="swiper.css">
+</head>
+<style>
+	html, body {
+      position: relative;
+      height: 100%;
+    }
+    body {
+      background: #eee;
+      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      color:#000;
+      margin: 0;
+      padding: 0;
+    }
+    .swiper-container {
+      width: 600px;
+      height: 300px;
+      
+    }
+    .swiper-slide {
+      /*text-align: center;*/
+      font-size: 18px;
+      background: #fff;
+
+      /* Center slide text vertically */
+/*      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;*/
+/*      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;*/
+    }
+    .app_list {
+    	width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+    	background-color: #fd0;
+    }
+    .appbox {
+    	width: 25%;
+    	height: 150px;
+    	text-align: center;
+    	line-height: 150px;
+    	background-color: #f00;
+    }
+</style>
+<body>
+
+
+<div class="swiper-container" id="swiper1">
+	<div class="swiper-wrapper">
+		<div class="swiper-slide" v-for="(page, index) in pages" :key="index">
+			<div class="app_list">
+				<div class="appbox" v-for="(item, index2) in page" :key="index2">
+					{{item.app}}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="jquery2.2.2.min.js"></script>
+<script src="vue.js"></script>
+<script src="swiper.js"></script>
+
+<script>
+	var example1 = new Vue({
+	  el: '#swiper1',
+	  data: {
+	    apply: [
+	      { app: '1' },
+	      { app: '2' },
+	      { app: '3' },
+	      { app: '4' },
+	      { app: '5' },
+	      { app: '6' },
+	      { app: '7' },
+	      { app: '8' },
+	      { app: '9' },
+	      { app: '10' },
+	      { app: '10' },
+	      { app: '10' },
+	      { app: '10' },
+	      { app: '10' },
+	      { app: '12' },
+	      { app: '12' },
+	      { app: '12' },
+	    ]
+	  },
+	  // 计算
+		computed: {
+			// 计算apply超过8个加多一个滑块
+			pages() {
+				const pages = [];
+				this.apply.forEach((item, index) => {
+					const page = Math.floor(index / 8);
+					if (!pages[page]) {
+						pages[page] = [];
+					}
+					pages[page].push(item);
+				});
+				return pages;
+			}
+		},
+	})
+
+	var swiper = new Swiper('.swiper-container');
+
+</script>
+</body>
+</html>
